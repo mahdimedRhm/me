@@ -30,7 +30,7 @@
                     <a href="#skills" class="text-white/80 hover:text-white transition-colors">Skills</a>
                     <a href="#experience" class="text-white/80 hover:text-white transition-colors">Experience</a>
                     <a href="#education" class="text-white/80 hover:text-white transition-colors">Education</a>
-                    <a href="#projects" class="text-white/80 hover:text-white transition-colors">Projects</a>
+                    <!-- <a href="#projects" class="text-white/80 hover:text-white transition-colors">Projects</a> -->
                     <a href="#contact" class="text-white/80 hover:text-white transition-colors">Contact</a>
                 </div>
                 <button class="border border-purple-400 text-purple-400 hover:bg-purple-400 hover:text-white px-4 py-2 rounded-md transition-colors flex items-center">
