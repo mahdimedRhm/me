@@ -16,32 +16,189 @@
             }
         }
     </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 50;
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .nav-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 0;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            background: linear-gradient(to right, #a855f7, #ec4899);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .nav-links {
+            display: none;
+            gap: 32px;
+        }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: white;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-btn {
+            border: 1px solid #a855f7;
+            color: #a855f7;
+            background: transparent;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+
+        .dropdown-btn:hover {
+            background: #a855f7;
+            color: white;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(12px);
+            border: 1px solid #a855f7;
+            border-radius: 6px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            top: 100%;
+            right: 0;
+            min-width: 160px;
+            z-index: 1;
+            margin-top: 4px;
+        }
+
+        .dropdown-content a {
+            display: block;
+            width: 100%;
+            padding: 12px 16px;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+
+        .dropdown-content a:hover {
+            background: rgba(168, 85, 247, 0.2);
+            color: white;
+        }
+
+        .dropdown-content a:first-child {
+            border-radius: 6px 6px 0 0;
+        }
+
+        .dropdown-content a:last-child {
+            border-radius: 0 0 6px 6px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .dropdown.open .dropdown-content {
+            display: block;
+        }
+
+        .chevron {
+            margin-left: 8px;
+            transition: transform 0.3s;
+        }
+
+        .dropdown.open .chevron {
+            transform: rotate(180deg);
+        }
+
+        /* Mobile responsive */
+        @media (min-width: 768px) {
+            .nav-links {
+                display: flex;
+            }
+        }
+
+        /* Demo content */
+        .content {
+            margin-top: 80px;
+            padding: 40px 24px;
+            text-align: center;
+            color: white;
+        }
+    </style>
 </head>
 <body class="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
     <!-- Navigation -->
-    <nav class="fixed top-0 w-full z-50 bg-black/20 backdrop-blur-md border-b border-white/10">
-        <div class="container mx-auto px-6 py-4">
-            <div class="flex items-center justify-between">
-                <div class="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-                    MR 
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">MR</div>
+                <div class="nav-links">
+                    <a href="#about">About</a>
+                    <a href="#skills">Skills</a>
+                    <a href="#experience">Experience</a>
+                    <a href="#education">Education</a>
+                    <a href="#contact">Contact</a>
                 </div>
-                <div class="hidden md:flex space-x-8">
-                    <a href="#about" class="text-white/80 hover:text-white transition-colors">About</a>
-                    <a href="#skills" class="text-white/80 hover:text-white transition-colors">Skills</a>
-                    <a href="#experience" class="text-white/80 hover:text-white transition-colors">Experience</a>
-                    <a href="#education" class="text-white/80 hover:text-white transition-colors">Education</a>
-                    <!-- <a href="#projects" class="text-white/80 hover:text-white transition-colors">Projects</a> -->
-                    <a href="#contact" class="text-white/80 hover:text-white transition-colors">Contact</a>
+                <div class="dropdown" id="languageDropdown">
+                    <button class="dropdown-btn" onclick="toggleDropdown()">
+                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-right: 8px;">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                        Resume
+                        <svg class="chevron" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="{{ asset('assets/cv_eng.pdf') }} " target="_blank">English (ENG)</a>
+                        <a href="{{ asset('assets/cv_fr.pdf') }}" target="_blank">Français (FR)</a>
+                    </div>
                 </div>
-                <button class="border border-purple-400 text-purple-400 hover:bg-purple-400 hover:text-white px-4 py-2 rounded-md transition-colors flex items-center">
-                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                    </svg>
-                    Resume
-                </button>
             </div>
         </div>
     </nav>
+
 
     <!-- Hero Section -->
     <section class="pt-32 pb-20 px-6">
@@ -477,6 +634,26 @@
     </footer>
 
     <script>
+        function toggleDropdown() {
+            const dropdown = document.getElementById('languageDropdown');
+            dropdown.classList.toggle('open');
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const dropdown = document.getElementById('languageDropdown');
+            if (!dropdown.contains(event.target)) {
+                dropdown.classList.remove('open');
+            }
+        });
+
+        // Close dropdown when clicking on a link
+        document.querySelectorAll('.dropdown-content a').forEach(link => {
+            link.addEventListener('click', function() {
+                document.getElementById('languageDropdown').classList.remove('open');
+            });
+        });
+
         // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
